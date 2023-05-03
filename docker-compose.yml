@@ -87,5 +87,3 @@ volumes:
   redis_2_data: {}
   redis_3_data: {}
   redis_4_data: {}
-  redis_5_data: {}
-  redis_6_data: {}
