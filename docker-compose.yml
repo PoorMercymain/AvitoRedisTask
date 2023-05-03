@@ -21,10 +21,10 @@ services:
     ports:
       - ${REDIS_PORT}
     volumes:
-      - redis_1_data:/data
+      - data_1:/data
     command: [ "redis-server", "--port ${REDIS_PORT}" ]
     networks:
-      - redis-net
+      - redis-network
 
   redis-2:
     image: redis
@@ -32,10 +32,10 @@ services:
     ports:
       - ${REDIS_PORT}
     volumes:
-      - redis_2_data:/data
+      - data_2:/data
     command: [ "redis-server", "--port ${REDIS_PORT}" ]
     networks:
-      - redis-net
+      - redis-network
 
   redis-3:
     image: redis
@@ -43,10 +43,10 @@ services:
     ports:
       - ${REDIS_PORT}
     volumes:
-      - redis_3_data:/data
+      - data_3:/data
     command: [ "redis-server", "--port ${REDIS_PORT}" , "--slaveof", "redis-1", "${REDIS_PORT}" ]
     networks:
-      - redis-net
+      - redis-network
 
   redis-4:
     image: redis
@@ -54,10 +54,10 @@ services:
     ports:
       - ${REDIS_PORT}
     volumes:
-      - redis_4_data:/data
+      - data_4:/data
     command: [ "redis-server", "--port ${REDIS_PORT}" , "--slaveof", "redis-2", "${REDIS_PORT}" ]
     networks:
-      - redis-net
+      - redis-network
 
   twem-proxy:
     image: tarantool/twemproxy
@@ -73,17 +73,17 @@ services:
     ports:
       - ${REDIS_PORT}:${REDIS_PORT}
     networks:
-      - redis-net
+      - redis-network
       - default
 
 networks:
   default:
     driver: bridge
-  redis-net:
+  redis-network:
     driver: bridge
 
 volumes:
-  redis_1_data: {}
-  redis_2_data: {}
-  redis_3_data: {}
-  redis_4_data: {}
+  data_1: {}
+  data_2: {}
+  data_3: {}
+  data_4: {}
