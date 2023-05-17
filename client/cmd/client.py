@@ -93,7 +93,7 @@ def get_forecast():
         json_response = response.json()
 
         re = requests.put(f"http://localhost:{PORT}/v1/save/", json={"key": f"{city}/{dt.date()}T{dt.hour}", "value": json_response["hourly"]["temperature_2m"][dt.hour]}, timeout=200)
-        #re = requests.put(f"http://localhost:{PORT}/v1/save/", data=jsonify({"key": f"{city}/{dt.date()}", "value": a}), timeout=200)
+        
         if re.status_code != 200:
             print("не получилось", flush=True)
         else:
